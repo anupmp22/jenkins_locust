@@ -1,0 +1,27 @@
+- name: Docker installation
+  hosts: tag_Name_firsttag
+  tasks:
+  - name: Install docker
+    yum: name=docker state=installed
+    become: yes
+
+  - name: start docker service
+    # shell: service docker start
+    service:
+        name: docker
+        state: started
+    become: yes
+
+  - name: verify docker version
+    shell: docker --version
+
+  - name: Install docker-compose
+    shell: curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    become: yes
+
+  - name: apply permission for docker-compose
+    shell: chmod +x /usr/local/bin/docker-compose
+    become: yes
+
+  - name: verify docker-compose version
+    shell: docker-compose --version
