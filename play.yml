@@ -1,0 +1,5 @@
+---
+ - name: main play
+   remote_user: ec2-user
+   become: yes
+   hosts: all
